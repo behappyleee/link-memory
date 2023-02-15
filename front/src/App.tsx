@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router';
 import TemplateTest from './pages/test/TemplateTest';
 import LoginMain from './pages/login/LoginMain';
 import JoinMain from './pages/join/JoinMain';
+import DashBoardMain from './pages/dashboard/DashBoardMain';
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<LoginMain />}></Route>
                 <Route path="/join" element={<JoinMain />}></Route> 
+                <Route path="/dashBoardMain" element={<DashBoardMain />}></Route> 
                 <Route path="/test" element={<TemplateTest />}></Route> 
-
 
             </Routes> 
         </BrowserRouter>
