@@ -1,4 +1,4 @@
-package com.link.back.login.service;
+package com.link.back.user.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-	
-	
-	
 	
 	
 }

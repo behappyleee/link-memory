@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -32,12 +32,31 @@ function Copyright(props: any) {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-      });
+      console.log('DATA CHECK : ' + JSON.stringify(data));
+      console.log({email: data.get('email'), password: data.get('password')});
     };
-  
+    
+    const [userData, setUserData] = useState({
+        firstName : '',
+        lastName : '',
+        email : '',
+        password: '',
+    }); 
+
+    const onChangeInputUserData = (e : any) => {
+      setUserData({
+        ...userData,
+        [e.target.name] : e.target.value,
+      })
+      console.log('SET USER DATA CHECK : ' + JSON.stringify(userData));
+
+    }
+
+    // TODO Validation Check 해주기 
+    const onClickSignUp = () => {
+
+    }
+
     return (
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -66,6 +85,7 @@ function Copyright(props: any) {
                     fullWidth
                     id="firstName"
                     label="First Name"
+                    onChange={onChangeInputUserData}
                     autoFocus
                   />
                 </Grid>
