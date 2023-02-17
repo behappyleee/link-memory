@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
 
 function Copyright(props: any) {
     return (
@@ -32,30 +33,70 @@ function Copyright(props: any) {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
-      console.log('DATA CHECK : ' + JSON.stringify(data));
-      console.log({email: data.get('email'), password: data.get('password')});
     };
-    
+
     const [userData, setUserData] = useState({
         firstName : '',
         lastName : '',
-        email : '',
+        email: '',
         password: '',
     }); 
 
+    const [isCheckConfirm, setIsCheckConfirm] = useState(false);
     const onChangeInputUserData = (e : any) => {
       setUserData({
-        ...userData,
-        [e.target.name] : e.target.value,
+          ...userData,
+          [e.target.name] : e.target.value
       })
-      console.log('SET USER DATA CHECK : ' + JSON.stringify(userData));
+    }
 
+    const checkJoinConfirm = () => {
+      setIsCheckConfirm(!isCheckConfirm);
     }
 
     // TODO Validation Check 해주기 
     const onClickSignUp = () => {
+      console.log('AFTER CLICK IS CHECK BUTTON : ' + isCheckConfirm); 
+      console.log('ON CLICK SIGN UP BUTTON CLICK TEST !');
+      console.log('is check confirm button data : ' + isCheckConfirm);
+      console.log('ON SIGN CLICI UP DATA : ' + JSON.stringify(userData));
+
+      if(userData.email == '' || userData.firstName == '' || userData.lastName == '' || userData.password == '') {
+        alert('회원가입 정보를 다시 한번 확인 해 주세요.');
+        return false;
+      }
+
+      if(!isCheckConfirm) {
+        alert('동의가 필요합니다.');
+        return false;
+      }
+
+      // 회원가입 구현 하여주기 !
+      joinUser(userData);
+    }
+
+    const joinUser = (userInfoData: any) => {
+      // 경로 앞에 /를 붙이면 절대 경로 / 를 붙이지 않을 시 상대경로임
+      axios.post('/userJoin', userInfoData)
+        .then((res) => {
+          console.log('USER JOIN RES : ' + JSON.stringify(res));
+        }).catch((err) => {
+          console.log('USER JOIN ERR : ' + JSON.stringify(err));
+        })
+      
+      // axios({
+      //   url: '/joinUser',
+      //   method: 'POST',
+      //   param: userInfoData,
+      // }).then((res) => {
+      //   console.log('JOIN USER DATA RES : ' + JSON.stringify(res));
+      // }).catch((err) => {
+      //   console.log('USER SAVE ERR : ' + JSON.stringify(err));
+      // })
+
 
     }
+
 
     return (
       <ThemeProvider theme={theme}>
@@ -97,6 +138,7 @@ function Copyright(props: any) {
                     label="Last Name"
                     name="lastName"
                     autoComplete="family-name"
+                    onChange={onChangeInputUserData}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -107,6 +149,7 @@ function Copyright(props: any) {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    onChange={onChangeInputUserData}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -118,12 +161,14 @@ function Copyright(props: any) {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    onChange={onChangeInputUserData}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                     label="I want to receive inspiration, marketing promotions and updates via email."
+                    onClick={checkJoinConfirm}
                   />
                 </Grid>
               </Grid>
@@ -132,6 +177,7 @@ function Copyright(props: any) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={onClickSignUp}
               >
                 Sign Up
               </Button>

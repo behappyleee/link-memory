@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 
-function testFunction() {
-    const [testNum, setTestNum] = useState(0);
+function TestFunction() {
+    const [testNum, setTestNum] = useState<number>(0);
     const onIncreaseNum = () => {
         setTestNum(testNum + 1);
     }    
@@ -18,4 +18,4 @@ function testFunction() {
     )
 }
 
-export default testFunction;
+export default TestFunction;
