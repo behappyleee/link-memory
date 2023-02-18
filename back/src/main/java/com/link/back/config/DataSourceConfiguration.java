@@ -27,7 +27,7 @@ public class DataSourceConfiguration {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mapper/**/*.xml"));
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.town.townNews");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.link.back");
         
         return sqlSessionFactoryBean.getObject();
     }

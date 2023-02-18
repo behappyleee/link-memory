@@ -29,14 +29,10 @@ public class JoinController {
 	@PostMapping("userJoin")
 	public JSONObject userJoin(HttpServletRequest req, @RequestBody HashMap<String, Object> data) {
 		logger.info("JoinController /api/userJoin data : {} ", data);
+		JSONObject jsonResult = joinService.userJoin(data);
 		
-		JSONObject jsonTest = joinService.userJoin(data);
-		JSONObject resultJson = joinService.userJoin(data);
-		
-		
-		logger.info("BEFORE RETURN MODEL JSONTESSSTT : {} " , jsonTest);
-		
-		return jsonTest;
+		logger.debug("AFTER JOIN SERVICE JSON DATA : {} ", jsonResult);
+		return jsonResult;
 	}
 	
 	@GetMapping("/getTest")

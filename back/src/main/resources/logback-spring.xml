@@ -56,5 +56,13 @@
     	<level value = "DEBUG" />
     	<appender-ref ref="INFO_LOG" />
   	</logger>	 
-
+	
+   	  <!-- logback.xml 에서 설정할 경우 -->
+	  <logger name="jdbc.sqlonly" level="ON"/> 
+	  <logger name="jdbc.sqltiming" level="info"/> 
+	  <logger name="jdbc.resultsettable" level="info"/>
+	  <logger name="jdbc.audit" level="OFF"/>
+	  <logger name="jdbc.resultset" level="OFF"/>
+	  <logger name="jdbc.connection" level="OFF"/>
+	
 </configuration>

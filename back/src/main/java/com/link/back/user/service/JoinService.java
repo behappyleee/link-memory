@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.link.back.user.dao.JoinDao;
+import com.link.back.user.dto.UserDto;
 
 @Service
 public class JoinService {
@@ -24,26 +25,33 @@ public class JoinService {
 	
 	public JSONObject userJoin(HashMap<String, Object> data) {
 		logger.info("JOIN SERVICE USER JOIN DATA : {} ", data);
-		
-		JSONObject jsonTest = new JSONObject();
-		
-		int countUser = joinDao.countUserEamil("test");
-		
-		logger.info("USER COUNT DATA : {} ", countUser);
-		
-		// 존재 하는 회원인 지 확인
-		// passwordEncoder.encode(null);
-		
-		// 회원 가입 validation 처리 하여 주기
-		jsonTest.put("RESULT_CONNECT", "SUCCESS");
-		
-		return jsonTest;
+		JSONObject jsonResult = new JSONObject();
+		try {
+			String userInputEmail = (String) data.get("email");
+			boolean isExistUser = isAlereayExistUserEmail(userInputEmail);
+			if(isExistUser) {
+				jsonResult.put("RESULT", "USER_EXIST");			
+				return jsonResult;
+			}
+			UserDto userDto = new UserDto();
+			userDto.setUserEmail((String) data.get("email"));
+			userDto.setUserPassword(passwordEncoder.encode((String)data.get("password")));
+			userDto.setFirstName((String) data.get("firstName"));
+			userDto.setLastName((String) data.get("lastName"));
+			
+			joinDao.saveJoinUseData(userDto);
+			jsonResult.put("RESULT", "JOIN_SUCEESS");
+		} catch(Exception e) {
+			jsonResult.put("RESULT", "JOIN_FAIL");
+			e.printStackTrace();
+		}
+		return jsonResult;
 	}
 	
 	public boolean isAlereayExistUserEmail(String inputUserEmail) {
 		boolean isExist = false;
-		
-		
+		int userEmailCount = joinDao.countUserEamil(inputUserEmail);
+		isExist = (userEmailCount > 0) ? true : false ;
 		return isExist;
 	}
 
