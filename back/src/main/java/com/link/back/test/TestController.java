@@ -16,14 +16,15 @@ public class TestController {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Autowired
-	LoginDao loginDao;
+//	@Autowired
+//	LoginDao loginDao;
 	
 	@RequestMapping("/")
 	public String HelloWorld() {
-		List<HashMap<String, Object>> test = loginDao.getMembers();
 		
-		logger.info("TEST DATA : {} ", test);
+		
+//		List<HashMap<String, Object>> test = loginDao.getMembers();
+//		logger.info("TEST DATA : {} ", test);
 		
 		return "HelloWorld";
 		

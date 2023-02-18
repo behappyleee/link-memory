@@ -4,17 +4,21 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.link.back.user.service.JoinService;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 public class JoinController {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -22,15 +26,25 @@ public class JoinController {
 	@Autowired
 	JoinService joinService;
 	
-	@RequestMapping("/userJoin")
-	public ModelAndView userJoin(HttpServletRequest req, @RequestParam HashMap<String, Object> data) {
-		logger.info("JoinController /userJoin data : {} ", data);
-		ModelAndView mv = new ModelAndView("jsonView");
+	@PostMapping("userJoin")
+	public JSONObject userJoin(HttpServletRequest req, @RequestBody HashMap<String, Object> data) {
+		logger.info("JoinController /api/userJoin data : {} ", data);
 		
-		joinService.userJoin(mv, data);
-		return mv;
+		JSONObject jsonTest = joinService.userJoin(data);
+		JSONObject resultJson = joinService.userJoin(data);
+		
+		
+		logger.info("BEFORE RETURN MODEL JSONTESSSTT : {} " , jsonTest);
+		
+		return jsonTest;
 	}
 	
+	@GetMapping("/getTest")
+	public String testGet() {
+		logger.info("GET TEST CHECK");
+		
+		return "Hello World";
+	}
 	
 	
 }

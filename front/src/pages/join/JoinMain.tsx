@@ -30,6 +30,7 @@ function Copyright(props: any) {
   const theme = createTheme();
 
   function JoinMain() {
+    const BASE_URL = 'http://localhost:8082';
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
@@ -49,7 +50,6 @@ function Copyright(props: any) {
           [e.target.name] : e.target.value
       })
     }
-
     const checkJoinConfirm = () => {
       setIsCheckConfirm(!isCheckConfirm);
     }
@@ -66,6 +66,10 @@ function Copyright(props: any) {
         return false;
       }
 
+
+      console.log('IS CHECK CONFIRM TEST DATA : ' + isCheckConfirm);
+
+
       if(!isCheckConfirm) {
         alert('동의가 필요합니다.');
         return false;
@@ -75,28 +79,18 @@ function Copyright(props: any) {
       joinUser(userData);
     }
 
-    const joinUser = (userInfoData: any) => {
+    const joinUser = async (userInfoData: any) => {
+      // axios 사용 시 url 값 만 필수이고 나머지는 option method 는 기입 안할 시 기본이 GET
       // 경로 앞에 /를 붙이면 절대 경로 / 를 붙이지 않을 시 상대경로임
-      axios.post('/userJoin', userInfoData)
+      axios.post('/api/userJoin', userInfoData)
+      // axios.post('/api/userJoin', userInfoData)
         .then((res) => {
-          console.log('USER JOIN RES : ' + JSON.stringify(res));
-        }).catch((err) => {
-          console.log('USER JOIN ERR : ' + JSON.stringify(err));
-        })
-      
-      // axios({
-      //   url: '/joinUser',
-      //   method: 'POST',
-      //   param: userInfoData,
-      // }).then((res) => {
-      //   console.log('JOIN USER DATA RES : ' + JSON.stringify(res));
-      // }).catch((err) => {
-      //   console.log('USER SAVE ERR : ' + JSON.stringify(err));
-      // })
-
-
+          console.log('THEN RES : ' + JSON.stringify(res));
+      }).catch((err) => {
+        console.log('ERRTHEN TEST REER : ' + JSON.stringify(err));
+      })
+     
     }
-
 
     return (
       <ThemeProvider theme={theme}>
