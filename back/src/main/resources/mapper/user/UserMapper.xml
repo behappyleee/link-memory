@@ -4,14 +4,15 @@
 <mapper namespace="UserMapper">
 
 	<select id="countUserEamil" resultType="int" parameterType="String">
-		SELECT count(*) FROM member WHERE user_email = #{userEmail};
+		SELECT count(*)   /* [UserMapper.xml][UserMapper][countUserEamil] */
+		  FROM member 
+		 WHERE user_email = #{userEmail};
 	</select>
 	
 	<insert id="saveJoinUseData">
-		INSERT INTO 
+		INSERT INTO  /* [UserMapper.xml][UserMapper][saveJoinUseData] */
 			  member (user_email, user_password, first_name, last_name) 
 		      VALUES (#{userEmail}, #{userPassword}, #{firstName}, #{lastName});
 	</insert>
-	
 	
 </mapper>

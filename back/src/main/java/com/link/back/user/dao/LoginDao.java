@@ -15,7 +15,7 @@ public class LoginDao {
 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private static String loginMapper = "com.link.back.testMapper";
+	private static String loginMapper = "LoginMapper";
 	
 	@Autowired
 	SqlSession sqlSession;
@@ -24,6 +24,13 @@ public class LoginDao {
 		return sqlSession.selectList(loginMapper + ".selectUserTest");
 	}
 	
+	public Integer userIndexId(String userEmail) {
+		return sqlSession.selectOne(loginMapper + ".userIndexId", userEmail);
+	}
+	
+	public String getUserPassword(Integer userIndexId) {
+		return sqlSession.selectOne(loginMapper + ".getUserPassword", userIndexId);
+	}
 	
 	
 	

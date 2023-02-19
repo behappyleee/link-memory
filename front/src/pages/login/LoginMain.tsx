@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,8 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props: any) {
     return (
@@ -29,7 +31,11 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 function LoginMain() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+  const [inputUserEamil, setInputUserEmail] = useState('');
+  const [inputUserPassword, setInputUserPassword] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
       console.log({
@@ -37,8 +43,40 @@ function LoginMain() {
         password: data.get('password'),
       });
     };
-  
-    return (
+    
+  const onChangeInputUserEmail = (e: any) => {
+    setInputUserEmail(e.target.value);
+  }
+  const onChangeInputUserPassword = (e: any) => {
+    setInputUserPassword(e.target.value);
+  }
+
+  const userLogin = async () => {
+    const inputUserData = {
+      userEmail: inputUserEamil,
+      userPassword: inputUserPassword,
+    }
+    
+    await axios.get('/api/userLogin', {params : inputUserData})
+      .then((res) => {
+        let loginResult = res.data.RESULT;
+        if(loginResult == 'USER_NOT_EXIST') {
+          alert('존재 하지 않는 회원 입니다.');
+          return false;
+        }
+        if(loginResult == 'USER_NOT_MATCH_PASSWORD') {
+          alert('비밀번호를 다시 확인해 주세요.');
+          return false;
+        }
+        navigate("/dashBoardMain");
+      }).catch((err) => {
+          console.log('api user err : ' + JSON.stringify(err));
+          alert('로그인을 다시 시도 해 주세요.');
+          return false;
+      })
+  }
+
+  return (
       <ThemeProvider theme={theme}>
         <Grid container component="main" sx={{ height: '100vh' }}>
           <CssBaseline />
@@ -82,6 +120,7 @@ function LoginMain() {
                   name="email"
                   autoComplete="email"
                   autoFocus
+                  onChange={onChangeInputUserEmail}
                 />
                 <TextField
                   margin="normal"
@@ -92,6 +131,7 @@ function LoginMain() {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                  onChange={onChangeInputUserPassword}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
@@ -102,6 +142,7 @@ function LoginMain() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  onClick={userLogin}
                 >
                   Sign In
                 </Button>

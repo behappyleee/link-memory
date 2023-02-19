@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 function Copyright(props: any) {
@@ -31,6 +32,7 @@ function Copyright(props: any) {
 
   function JoinMain() {
     const BASE_URL = 'http://localhost:8082';
+    const navigate = useNavigate();
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       const data = new FormData(event.currentTarget);
@@ -55,7 +57,7 @@ function Copyright(props: any) {
     }
 
     // TODO Validation Check 해주기 
-    const onClickSignUp = () => {
+    const onClickSignUp = async () => {
       console.log('AFTER CLICK IS CHECK BUTTON : ' + isCheckConfirm); 
       console.log('ON CLICK SIGN UP BUTTON CLICK TEST !');
       console.log('is check confirm button data : ' + isCheckConfirm);
@@ -66,9 +68,7 @@ function Copyright(props: any) {
         return false;
       }
 
-
       console.log('IS CHECK CONFIRM TEST DATA : ' + isCheckConfirm);
-
 
       if(!isCheckConfirm) {
         alert('동의가 필요합니다.');
@@ -76,20 +76,24 @@ function Copyright(props: any) {
       }
 
       // 회원가입 구현 하여주기 !
-      joinUser(userData);
-    }
-
-    const joinUser = async (userInfoData: any) => {
-      // axios 사용 시 url 값 만 필수이고 나머지는 option method 는 기입 안할 시 기본이 GET
-      // 경로 앞에 /를 붙이면 절대 경로 / 를 붙이지 않을 시 상대경로임
-      axios.post('/api/userJoin', userInfoData)
-      // axios.post('/api/userJoin', userInfoData)
+      await axios.post('/api/userJoin', userData)
         .then((res) => {
-          console.log('THEN RES : ' + JSON.stringify(res));
-      }).catch((err) => {
-        console.log('ERRTHEN TEST REER : ' + JSON.stringify(err));
-      })
-     
+            let joinResult = res.data.RESULT;
+            if(joinResult == 'USER_EXIST') {
+              alert('이미 존재하는 사용자 이메일 입니다.');
+              return false;
+            }
+            if(joinResult = 'JOIN_SUCEESS') {
+              alert('회원 가입이 되었습니다. 로그인 해주세요 !');
+              navigate("/login");
+            }
+          }).catch((err) => {
+            let joinResult = err.data.RESULT;
+            console.log('AXIOS ERR CHECK VALUE : ' + JSON.stringify(err));
+            if(joinResult = 'JOIN_FAIL') {
+              alert('회원 가입에 실패하였습니다 ! 다시 시도해 주세요 !');
+            } 
+        })
     }
 
     return (
@@ -158,11 +162,10 @@ function Copyright(props: any) {
                     onChange={onChangeInputUserData}
                   />
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={12} onClick={checkJoinConfirm}>
                   <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                     label="I want to receive inspiration, marketing promotions and updates via email."
-                    onClick={checkJoinConfirm}
                   />
                 </Grid>
               </Grid>
@@ -177,7 +180,7 @@ function Copyright(props: any) {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/login" variant="body2">
                     Already have an account? Sign in
                   </Link>
                 </Grid>
