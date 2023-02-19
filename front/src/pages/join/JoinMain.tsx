@@ -58,18 +58,10 @@ function Copyright(props: any) {
 
     // TODO Validation Check 해주기 
     const onClickSignUp = async () => {
-      console.log('AFTER CLICK IS CHECK BUTTON : ' + isCheckConfirm); 
-      console.log('ON CLICK SIGN UP BUTTON CLICK TEST !');
-      console.log('is check confirm button data : ' + isCheckConfirm);
-      console.log('ON SIGN CLICI UP DATA : ' + JSON.stringify(userData));
-
       if(userData.email == '' || userData.firstName == '' || userData.lastName == '' || userData.password == '') {
         alert('회원가입 정보를 다시 한번 확인 해 주세요.');
         return false;
       }
-
-      console.log('IS CHECK CONFIRM TEST DATA : ' + isCheckConfirm);
-
       if(!isCheckConfirm) {
         alert('동의가 필요합니다.');
         return false;

@@ -2,6 +2,8 @@ package com.link.back.user.controller;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +25,10 @@ public class LoginController {
 	LoginService loginService;
 	
 	@GetMapping("/userLogin")
-	public JSONObject userLogin(@RequestParam HashMap<String, Object> data) {
+	public JSONObject userLogin(HttpServletRequest request, @RequestParam HashMap<String, Object> data) {
 		logger.info("/userLogin PARAMS DATA :{} ", data);
 		
-		JSONObject loginResult = loginService.userLogin(data);
+		JSONObject loginResult = loginService.userLogin(request, data);
 		
 		logger.info("USER LOGIN RESULT DATA :{} ", loginResult);
 		return loginResult;

@@ -56,7 +56,6 @@ function LoginMain() {
       userEmail: inputUserEamil,
       userPassword: inputUserPassword,
     }
-    
     await axios.get('/api/userLogin', {params : inputUserData})
       .then((res) => {
         let loginResult = res.data.RESULT;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
@@ -17,7 +17,9 @@ import List from '@mui/material/List';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { mainListItems, secondaryListItems } from './listItems';
+import { secondaryListItems } from './listItems';
+import MainListItems from './listItems';
+import DashBoardMainContents from './DashBoardMainContents';
 
 function Copyright(props: any) {
     return (
@@ -84,12 +86,14 @@ function Copyright(props: any) {
 
   const mdTheme = createTheme();
 
-  function DashBoardMain() {
+  function DashBoardMain(props: any) {
     const [open, setOpen] = React.useState(true);
+    const [contentsIndex, setContentsIndex] = useState(0);
+    
     const toggleDrawer = () => {
       setOpen(!open);
     };
-  
+
     return (
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
@@ -143,7 +147,7 @@ function Copyright(props: any) {
             </Toolbar>
             <Divider />
             <List component="nav">
-              {mainListItems}
+               <MainListItems contentsIndex={setContentsIndex} /> 
               <Divider sx={{ my: 1 }} />
               {secondaryListItems}
             </List>
@@ -161,8 +165,7 @@ function Copyright(props: any) {
             }}
           >
             <Toolbar />
-
-            
+            <DashBoardMainContents contentsIndex={contentsIndex} />
             {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Grid container spacing={3}>
                 {/* Chart */}

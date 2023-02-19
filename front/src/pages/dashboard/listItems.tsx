@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,45 +9,86 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import LinkMemory from '../../components/linkMemory/LinkMemory';
+import DashBoardMainContents from './DashBoardMainContents';
+import DashBoardMain from './DashBoardMain';
 
-export const mainListItems = (
-  <React.Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ListItemText primary="Dashboard" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Orders" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <ListItemText primary="Reports" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="Integrations" />
-    </ListItemButton>
-  </React.Fragment>
-);
+const testOnClick = () => {
+  alert('CLICK ME !!!');
+  // <DashBoardMainContents contents="SAVED_LINK"/>
+}
+
+// const testOnClickLinkRegist = (): number => {
+//   var indexNum = 0;
+//   const [contentsIndex, setContentsIndex] = useState(0);  
+//   alert('Link Regist 등록 !!!!');
+//   // <DashBoardMainContents contents="LINK_REGISTER"/>
+//   return indexNum;
+// }
+
+// const [contentsIndex, setContentsIndex] = useState(0);
+
+function MainListItems(props: any): any {
+  const [contentsIndex, setContentsIndex] = useState<number>(0);  
+  const dashboardContentsIndex = (contentsIndex: number) => {
+    // Index 0 - 저장 된 Link 보여주는 페이지, Index 1 - Link 등록 페이지
+    setContentsIndex(contentsIndex);
+    props.contentsIndex(contentsIndex);
+  }
+
+  return (
+    <React.Fragment>  
+      <ListItemButton onClick={() => {dashboardContentsIndex(0)}}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="저장 된 Link" />
+        {/* <DashBoardMainContents contents="SAVED_LINK"/> */}
+      </ListItemButton>
+      <ListItemButton onClick={() => {dashboardContentsIndex(1)}}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="Link 등록" />
+      </ListItemButton>
+
+      {/* <ListItemButton>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Orders" />
+      </ListItemButton>
+
+      <ListItemButton>
+        <ListItemIcon>
+          <PeopleIcon />
+        </ListItemIcon>
+        <ListItemText primary="Customers" />
+      </ListItemButton>
+
+      <ListItemButton>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Reports" />
+      </ListItemButton>
+
+      <ListItemButton>
+        <ListItemIcon>
+          <LayersIcon />
+        </ListItemIcon>
+        <ListItemText primary="Integrations" />
+      </ListItemButton> */}
+    </React.Fragment>
+  )
+}
+
+export default MainListItems;
 
 export const secondaryListItems = (
   <React.Fragment>
-    <ListSubheader component="div" inset>
+    {/* FAQ or Error Report 기능 나중에 구현 하여 보기 !!! */}
+    {/* <ListSubheader component="div" inset>
       Saved reports
     </ListSubheader>
     <ListItemButton>
@@ -67,6 +108,7 @@ export const secondaryListItems = (
         <AssignmentIcon />
       </ListItemIcon>
       <ListItemText primary="Year-end sale" />
-    </ListItemButton>
+    </ListItemButton> */}
+
   </React.Fragment>
 );

@@ -2,6 +2,9 @@ package com.link.back.user.service;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +25,7 @@ public class LoginService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-	public JSONObject userLogin(HashMap<String, Object> data) {
+	public JSONObject userLogin(HttpServletRequest request, HashMap<String, Object> data) {
 		logger.info("/userLogin LOGIN SERVICE DATA : {} ", data);
 		JSONObject loginResult = new JSONObject();
 		
@@ -45,7 +48,14 @@ public class LoginService {
 		}
 		
 		loginResult.put("RESULT", "USER_LOGIN_SUCCESS");
+		
+		// Session 에 저장 
+		// TODO Session 저장 시 메서드 말고 클래스로 뺴서 Session 관리 구현 하여 보기
+		HttpSession session = request.getSession();
+		session.setAttribute("CURRENT_SESSION_USER_EMAIL", (String)data.get("userEmail"));
+		
 		logger.info("LAST LOGIN RESULT JSON DATA CHECK : {} ", loginResult);
+		
 		return loginResult;
 	}
 	
