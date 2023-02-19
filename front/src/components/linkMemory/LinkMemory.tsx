@@ -28,10 +28,20 @@ function LinkMemory() {
 
     }, [userLinkData])
 
+    // TODO
+    // axios 로 User 데이터 가져 온 후 다시 re - rendering 하여 주기
+    // 다시 RE-RENDERING 필요
     return (
-        <div>
+        <>
             아직 저장된 LINK 가 없습니다.
-        </div>
+            {
+                userLinkData.map((eachData) => {
+                    <div>
+                        {/* { eachData.user_email } */}
+                    </div>
+                })
+            }
+        </>
     )
 }
 
