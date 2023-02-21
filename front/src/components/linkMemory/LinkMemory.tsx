@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import LinkCard from './LinkCard';
-import { Grid, Box } from "@material-ui/core";
 import { Container, Typography } from "@material-ui/core";
 import {Table, TableHead, TableBody, TableRow, TableCell, TableSortLabel} from '@material-ui/core';
 import CardTest from '../../pages/test/CardTest';
-import Paper from '@material-ui/core/Paper';
 import { TableContainer } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Unstable_Grid2';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
 function LinkMemory() {
     const [userLinkData, setUserLinkData] =  useState<Array<Object>>([]);
-
     useEffect(() => {
         userSavedLinkData();
     }, [])
 
-    async function userSavedLinkData() {
+    const Item = styled(Paper)(({ theme }) => ({
+        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        ...theme.typography.body2,
+        padding: theme.spacing(10),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+      }));
+
+    // async function userSavedLinkData() {
+    const userSavedLinkData = async() => {    
         await axios.get('/api/userSavedLinkData')
             .then((res) => {
                 let result = res.data.DATA_SEARCH;
@@ -32,11 +42,15 @@ function LinkMemory() {
 
     return (
         <div>
-            {   
-                userLinkData.map((eachData, index) => (
-                    <LinkCard linkData={eachData} key={index} sx={{ display: 'inline-flex' }} />
-                ))
-            }
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={4}>
+                    {   
+                        userLinkData.map((eachData, index) => (
+                            <LinkCard linkData={eachData} key={index} sx={{ display: 'inline-flex' }} />
+                        ))
+                    }
+                </Grid>
+            </Box>
         </div>
     )   
 }

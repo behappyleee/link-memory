@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -17,6 +17,19 @@ function LinkCard(linkData: any) {
         setModalPop(!modalPop);
       }, [modalPop]);
 
+    useEffect(() => {
+
+        console.log('LINK DATA CHECKDDD A: ' + JSON.stringify(linkData));
+        mainImageSearch();
+    }, [])
+
+    const mainImageSearch = async () => {
+        
+
+        
+    }
+
+
     console.log('LINK CARD LINK DATA CHECK : ' + JSON.stringify(linkData));
 
     return (
@@ -29,20 +42,19 @@ function LinkCard(linkData: any) {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                    Lizard
+                        {linkData.linkData.user_id}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica
+                        {linkData.linkData.user_email}    
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Share</Button>
+                    <Button size="small">{linkData.linkData.id}</Button>
                     <Button onClick={onClickToggleModal} size="small">Learn More</Button>
                 </CardActions>
             </Card>
 
-        <Modal
+        {/* <Modal
             open={modalPop}
             onClose={closeModal}
             aria-labelledby="modal-modal-title"
@@ -56,7 +68,7 @@ function LinkCard(linkData: any) {
                 Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                 </Typography>
             </Box>
-        </Modal>
+        </Modal> */}
 
         </div>
         
