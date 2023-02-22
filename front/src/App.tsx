@@ -10,6 +10,7 @@ import TestReactScript from './pages/test/TestReactScript';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import TestPage from './pages/test/TestPage';
+import HookTest from './pages/test/HookTest';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,9 +31,12 @@ function App() {
                 <Route path="/login" element={<LoginMain />}></Route>               {/* 로그인 페이지 */}      
                 <Route path="/join" element={<JoinMain />}></Route>                 {/* 회원가입 페이지 */}          
                 <Route path="/dashBoardMain" element={<DashBoardMain />}></Route>   {/* Dashboard 메인 페이지 */}          
+                
+                {/* TEST PAGE */}
                 <Route path="/test" element={<TemplateTest />}></Route>             {/* 테스트 페이지 */}          
                 <Route path="/testReact" element={<TestReactScript />}></Route> 
                 <Route path="/testPage" element={<TestPage />}></Route> 
+                <Route path="/hookTest" element={<HookTest />}></Route>
             </Routes> 
         </BrowserRouter>
      
