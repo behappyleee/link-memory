@@ -4,10 +4,15 @@
 <mapper namespace="LinkDataMapper">
 
 	<select id="userSavedLinkData" resultType="hashmap">
-		SELECT *  /* [LinkDataMapper.xml][LinkDataMapper][userSavedLinkData] */
-		  FROM user_saved_link ul
-		 WHERE ul.user_email = #{userEmail};
-	
+			  SELECT  ul.id  /* [LinkDataMapper.xml][LinkDataMapper][userSavedLinkData] */
+				    , ul.user_id
+				    , ul.user_email
+				    , ul.link
+				    , lc.comment
+			   FROM user_saved_link ul
+	LEFT OUTER JOIN link_comment lc	 
+			     ON ul.id = lc.saved_link_id
+			  WHERE ul.user_email = #{userEmail} 
 	</select>
 		
 

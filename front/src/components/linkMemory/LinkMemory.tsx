@@ -12,6 +12,8 @@ import Paper from '@mui/material/Paper';
 
 function LinkMemory() {
     const [userLinkData, setUserLinkData] =  useState<Array<Object>>([]);
+    const [spacing, setSpacing] = useState(0);
+    
     useEffect(() => {
         userSavedLinkData();
     }, [])
@@ -31,9 +33,9 @@ function LinkMemory() {
                 let result = res.data.DATA_SEARCH;
                 if(result == 'SUCCESS') {
                     let listData = res.data.USER_LINK_DATA;
-                    setUserLinkData(
-                        listData
-                    );
+                    setUserLinkData(listData);
+                    setSpacing(Math.ceil(listData.length/3));    
+                    
                 }
             }).catch((err) => {
                 console.log('USER SAVED LINKED DATA ERR : ' + JSON.stringify(err));
@@ -43,10 +45,12 @@ function LinkMemory() {
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={4}>
-                    {   
+                <Grid container spacing={spacing}>
+                    {   userLinkData && 
                         userLinkData.map((eachData, index) => (
-                            <LinkCard linkData={eachData} key={index} sx={{ display: 'inline-flex' }} />
+                            <Grid xs={4} key={index}>    
+                                <LinkCard linkData={eachData} key={index} sx={{ display: 'inline-flex' }} />
+                            </Grid>
                         ))
                     }
                 </Grid>

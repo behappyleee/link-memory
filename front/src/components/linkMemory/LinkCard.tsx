@@ -33,7 +33,7 @@ function LinkCard(linkData: any) {
 
     return (
         <div>
-            <Card sx={{ maxWidth: 190 }}>
+            <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
                     sx={{ height: 120 }}
                     image="/static/images/cards/contemplative-reptile.jpg"
