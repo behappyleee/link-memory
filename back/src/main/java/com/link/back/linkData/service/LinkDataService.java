@@ -1,7 +1,7 @@
 package com.link.back.linkData.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +24,7 @@ public class LinkDataService {
 	@Autowired
 	LinkDataDao linkDataDao;
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject userSavedLinkData(HttpServletRequest request, HashMap<String, Object> data) {
 		JSONObject jsonData = new JSONObject();
 		
@@ -47,23 +48,30 @@ public class LinkDataService {
 		return jsonData;
 	}
 	
-	// TODO Json 데이터 Comment 순서에 따라 제대로 만들어 주기 !!!!
+	@SuppressWarnings("unchecked")
 	public JSONObject sortListByLink(List<HashMap<String,Object>> linkList) {
 		logger.info("JSONArrayData : {} ", linkList);
 		JSONObject jsonObject = new JSONObject();
 		
 		if(linkList.isEmpty()) return jsonObject;
 		
-		HashMap<String, Object> linkMap = new HashMap<String, Object>();
+		JSONArray jsonArray = null;
 		
 		for(int i=0; i<linkList.size(); i++) {
+			jsonArray = new JSONArray();
 			if(jsonObject.containsKey(linkList.get(i).get("link"))) {
-				
+				jsonArray = (JSONArray)jsonObject.get(linkList.get(i).get("link"));
+				jsonArray.add(linkList.get(i));
+				jsonObject.put(linkList.get(i).get("link"), jsonArray);
+				continue;
 			}
-			jsonObject.put(linkList.get(i).get("link"), linkList.get(i));
+			jsonArray.add(linkList.get(i));
+			jsonObject.put(linkList.get(i).get("link"), jsonArray);
 		}
 		
-		return null;
+		logger.info("AFTER JSON PARSING DATA CHECK : {} " , jsonObject);
+		
+		return jsonObject;
 	}
 
 }

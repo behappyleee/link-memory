@@ -18,6 +18,10 @@ function LinkMemory() {
         userSavedLinkData();
     }, [])
 
+    useEffect(() => {
+        showGridData(userLinkData);
+    }, [userLinkData])
+
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
@@ -31,8 +35,14 @@ function LinkMemory() {
         await axios.get('/api/userSavedLinkData')
             .then((res) => {
                 let result = res.data.DATA_SEARCH;
+
+                console.log('RES GET DATA CHECK : ' + JSON.stringify(res));    
+
                 if(result == 'SUCCESS') {
                     let listData = res.data.USER_LINK_DATA;
+
+                    showGridData('show 1122');
+
                     setUserLinkData(listData);
                     setSpacing(Math.ceil(listData.length/3));    
                     
@@ -41,18 +51,22 @@ function LinkMemory() {
                 console.log('USER SAVED LINKED DATA ERR : ' + JSON.stringify(err));
             }) 
     }
+   
+    const showGridData = (showListData: any) => {
+        let html = 'test11123';
+
+        console.log('SHOW GRID DATA LIST CHECK : ' + JSON.stringify(showListData));
+
+
+        return html;
+    }   
+
 
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={spacing}>
-                    {   userLinkData && 
-                        userLinkData.map((eachData, index) => (
-                            <Grid xs={4} key={index}>    
-                                <LinkCard linkData={eachData} key={index} sx={{ display: 'inline-flex' }} />
-                            </Grid>
-                        ))
-                    }
+                    {showGridData(userLinkData)}
                 </Grid>
             </Box>
         </div>
