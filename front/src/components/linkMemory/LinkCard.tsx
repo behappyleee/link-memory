@@ -12,6 +12,12 @@ import CustomModal from '../modal/CustomModal';
 import { Modal } from '@mui/material';
 
 function LinkCard(linkData: any) {
+    let linkName = linkData.linkKey;
+    let comments = linkData.linkData;
+
+    console.log('LINK CARD TEST PROPS :  ' + JSON.stringify(linkData));
+    console.log('코멘츠 데이터 코멘트 :  ' + JSON.stringify(comments));
+
     const [modalPop, setModalPop] = useState<boolean>(false);
     const [closeModal, setCloseModal] = useState<boolean>(false);
 
@@ -22,6 +28,11 @@ function LinkCard(linkData: any) {
     useEffect(() => {
         // TODO Link Image 사진 가져오기
         console.log('LINK DATA CHECKDDD A: ' + JSON.stringify(linkData));
+
+
+
+
+
         mainImageSearch();
     }, [])
 
@@ -35,16 +46,24 @@ function LinkCard(linkData: any) {
         <div>
             <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
-                    sx={{ height: 120 }}
+                    sx={{ height: 200 }}
                     image="/static/images/cards/contemplative-reptile.jpg"
                     title="green iguana"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {linkData.linkData.user_id}
+                        {linkName}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {linkData.linkData.user_email}    
+                        {
+                            comments &&
+                            comments.map((comment: any, index: number) => (
+                                <>  
+                                    <span key={index}>{comment.user_email}</span><br/>
+                                    <span key={index}>{comment.comment}</span>
+                                </>
+                            ))
+                        }
                     </Typography>
                 </CardContent>
                 <CardActions>
@@ -52,6 +71,7 @@ function LinkCard(linkData: any) {
                     <Button onClick={onClickToggleModal} size="small">Learn More</Button>
                 </CardActions>
             </Card>
+
         {
             modalPop && (
                 <Modal
@@ -73,7 +93,9 @@ function LinkCard(linkData: any) {
                 </Modal>
             )
         }
-        {/* <Modal
+        
+        {/* 
+        <Modal
             open={modalPop}
             onClose={closeModal}
             aria-labelledby="modal-modal-title"
@@ -90,8 +112,6 @@ function LinkCard(linkData: any) {
         </Modal> */}
 
         </div>
-        
-
     )
 }
 

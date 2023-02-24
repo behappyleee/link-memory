@@ -51,6 +51,12 @@ function MainListItems(props: any): any {
         </ListItemIcon>
         <ListItemText primary="Link 등록" />
       </ListItemButton>
+      <ListItemButton onClick={() => {dashboardContentsIndex(2)}}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="에러 보고" />
+      </ListItemButton>
 
       {/* <ListItemButton>
         <ListItemIcon>

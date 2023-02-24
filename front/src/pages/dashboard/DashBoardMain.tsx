@@ -17,8 +17,8 @@ import List from '@mui/material/List';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { secondaryListItems } from './listItems';
-import MainListItems from './listItems';
+import { secondaryListItems } from './ListItems';
+import MainListItems from './ListItems';
 import DashBoardMainContents from './DashBoardMainContents';
 
 function Copyright(props: any) {

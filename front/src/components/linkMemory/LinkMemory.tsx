@@ -18,16 +18,13 @@ function LinkMemory() {
         userSavedLinkData();
     }, [])
 
-    useEffect(() => {
-        showGridData(userLinkData);
-    }, [userLinkData])
-
     const Item = styled(Paper)(({ theme }) => ({
         backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
         ...theme.typography.body2,
         padding: theme.spacing(10),
         textAlign: 'center',
         color: theme.palette.text.secondary,
+        margin: [10, 20, 10],
       }));
 
     // async function userSavedLinkData() {
@@ -41,27 +38,34 @@ function LinkMemory() {
                 if(result == 'SUCCESS') {
                     let listData = res.data.USER_LINK_DATA;
 
-                    showGridData('show 1122');
+                    // showGridData('show 1122');
 
                     setUserLinkData(listData);
                     setSpacing(Math.ceil(listData.length/3));    
                     
                 }
             }).catch((err) => {
-                console.log('USER SAVED LINKED DATA ERR : ' + JSON.stringify(err));
+                console.log('USER SAVED LINKED DATA ERR : ' + err);
             }) 
     }
    
     const showGridData = (showListData: any) => {
         let html = 'test11123';
+        const newArr = []
+        for(let eachData in showListData) {
+            let eachListData = showListData[eachData];
+            newArr.push(
+            <Grid key={eachData} xs={4}>
+                <LinkCard linkData={eachListData} linkKey={eachData} key={eachData} sx={{ display: 'inline-flex' }} />
+            </Grid>
+            );
+        }   
 
         console.log('SHOW GRID DATA LIST CHECK : ' + JSON.stringify(showListData));
 
-
-        return html;
+        return newArr;
     }   
-
-
+    
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
