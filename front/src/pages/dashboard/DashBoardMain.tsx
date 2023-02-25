@@ -20,6 +20,14 @@ import Paper from '@mui/material/Paper';
 import { secondaryListItems } from './ListItems';
 import MainListItems from './ListItems';
 import DashBoardMainContents from './DashBoardMainContents';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props: any) {
     return (
@@ -89,10 +97,37 @@ function Copyright(props: any) {
   function DashBoardMain(props: any) {
     const [open, setOpen] = React.useState(true);
     const [contentsIndex, setContentsIndex] = useState(0);
-    
+    const [openLogoutConfirm, setLogoutConfirm] = useState<boolean>(false);
+    const navigate = useNavigate();
+
     const toggleDrawer = () => {
       setOpen(!open);
     };
+
+    const setLogout = () => {
+      setLogoutConfirm(true);
+    }
+    const closeLogoutConfirm = () => {
+      setLogoutConfirm(false);
+    }
+    const currentUserLogout = () => {
+      axios.get('/api/logout')
+        .then((res) => {
+          let logoutResult: string = res.data.LOGOUT_RESULT;
+          if(logoutResult === 'SUCCESS') {
+            alert('정상적으로 로그아웃이 되었습니다!');          
+            navigate("/");
+            return true;
+          } 
+
+          alert('로그아웃에 실패하였습니다. 잠시후 다시 이용해 주세요!');
+          return false;
+        }).catch((err) => {
+          console.log('currentUserLogout ERR : ' + JSON.stringify(err));
+          alert('로그아웃에 실패하였습니다 !');
+          return false;
+        })
+    }
 
     return (
       <ThemeProvider theme={mdTheme}>
@@ -123,8 +158,33 @@ function Copyright(props: any) {
                 noWrap
                 sx={{ flexGrow: 1 }}
               >
-                Dashboard
+                링크메모리
               </Typography>
+              
+              <Button variant="contained" color="secondary" onClick={setLogout}>
+                LOGOUT
+              </Button>
+              <Dialog
+                open={openLogoutConfirm}
+                onClose={closeLogoutConfirm}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              > 
+                <DialogTitle id="alert-dialog-title">
+                  {"로그아웃을 하시겠습니까 ?"}
+                </DialogTitle>
+                 <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    로그아웃을 하시려면 로그아웃을 버튼을 눌러주세요.
+                  </DialogContentText>
+                </DialogContent> 
+                <DialogActions>
+                  <Button onClick={currentUserLogout} autoFocus>로그아웃</Button>
+                  <Button onClick={closeLogoutConfirm}>취소</Button>
+                  {/* <Button onClick={closeLogoutConfirm}>Disagree</Button>
+                  <Button onClick={currentUserLogout} autoFocus>Agree</Button> */}
+                </DialogActions>
+              </Dialog>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
                   <NotificationsIcon />
@@ -212,5 +272,3 @@ function Copyright(props: any) {
   export default function Dashboard() {
     return <DashBoardMain />;
   }
-
-// export default DashBoardMain;
