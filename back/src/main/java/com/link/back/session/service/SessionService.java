@@ -19,13 +19,11 @@ public class SessionService {
 	public JSONObject existUserSession(HttpServletRequest request) {
 		JSONObject sessionResult = new JSONObject();
 		HttpSession currentSession = request.getSession();
-		
 		String currentUserEmail = (String)currentSession.getAttribute("CURRENT_SESSION_USER_EMAIL");
-		if(currentUserEmail.equals(null) || currentUserEmail.equals("") || currentUserEmail.isBlank() || currentUserEmail.isEmpty()) {
+		if(currentUserEmail == null || currentUserEmail.equals("") || currentUserEmail.isBlank() || currentUserEmail.isEmpty()) {
 			sessionResult.put("EXIST_SESSION_RESULT", "NONE");
 			return sessionResult;
 		}
-		
 		sessionResult.put("EXIST_SESSION_RESULT", "EXISTS");
 		return sessionResult;
 	}

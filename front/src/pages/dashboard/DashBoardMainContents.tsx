@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import LinkMemory from '../../components/linkMemory/LinkMemory';
-import LinkRegist from '../../components/linkRegist/LinkRegist';
+import LinkRegistMain from '../linkRegist/LinkRegistMain';
 
 function DashBoardMainContents(props: any) {
     const [contentsIndex, setContentsIndex] = useState(0);
@@ -19,7 +19,7 @@ function DashBoardMainContents(props: any) {
             }
 
             {contentsIndex == 1 &&
-                <LinkRegist />
+                <LinkRegistMain />
             }
 
             {/* <div> */}

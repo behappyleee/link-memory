@@ -11,6 +11,9 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
 function LinkMemory() {
+    // TODO
+    // LoadingBar 적용 하기 !!!!
+    // Link 데이터 가져오는 시간이 오래 걸릴 수 있음 !!!
     const [userLinkData, setUserLinkData] =  useState<Array<Object>>([]);
     const [spacing, setSpacing] = useState(0);
     
