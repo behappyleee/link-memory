@@ -14,25 +14,14 @@ import { Modal } from '@mui/material';
 function LinkCard(linkData: any) {
     let linkName = linkData.linkKey;
     let comments = linkData.linkData;
-
-    console.log('LINK CARD TEST PROPS :  ' + JSON.stringify(linkData));
-    console.log('코멘츠 데이터 코멘트 :  ' + JSON.stringify(comments));
-
     const [modalPop, setModalPop] = useState<boolean>(false);
     const [closeModal, setCloseModal] = useState<boolean>(false);
-
     const onClickToggleModal = useCallback(() => {
         setModalPop(!modalPop);
     }, [modalPop]);
 
     useEffect(() => {
         // TODO Link Image 사진 가져오기
-        console.log('LINK DATA CHECKDDD A: ' + JSON.stringify(linkData));
-
-
-
-
-
         mainImageSearch();
     }, [])
 
@@ -40,15 +29,13 @@ function LinkCard(linkData: any) {
         
     }
 
-    console.log('LINK CARD LINK DATA CHECK : ' + JSON.stringify(linkData));
-
     return (
         <div>
             <Card sx={{ maxWidth: 300 }}>
                 <CardMedia
                     sx={{ height: 200 }}
-                    image="/static/images/cards/contemplative-reptile.jpg"
-                    title="green iguana"
+                    image="/images/test_image_1.jpg"
+                    title="test image"
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
@@ -58,10 +45,10 @@ function LinkCard(linkData: any) {
                         {
                             comments &&
                             comments.map((comment: any, index: number) => (
-                                <>  
-                                    <span key={index}>{comment.user_email}</span><br/>
-                                    <span key={index}>{comment.comment}</span>
-                                </>
+                                <div key={index}>  
+                                    <span>{comment.user_email}</span><br/>
+                                    <span>{comment.comment}</span>
+                                </div>
                             ))
                         }
                     </Typography>

@@ -60,9 +60,6 @@ function LinkMemory() {
             </Grid>
             );
         }   
-
-        console.log('SHOW GRID DATA LIST CHECK : ' + JSON.stringify(showListData));
-
         return newArr;
     }   
     
