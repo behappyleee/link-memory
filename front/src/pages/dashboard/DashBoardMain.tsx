@@ -164,6 +164,10 @@ function Copyright(props: any) {
               <Button variant="contained" color="secondary" onClick={setLogout}>
                 LOGOUT
               </Button>
+              <Button variant="contained" color="secondary" href="/changeUserData">
+                회원정보 수정
+              </Button>  
+
               <Dialog
                 open={openLogoutConfirm}
                 onClose={closeLogoutConfirm}
