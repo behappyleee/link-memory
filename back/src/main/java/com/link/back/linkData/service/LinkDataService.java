@@ -1,20 +1,24 @@
 package com.link.back.linkData.service;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.link.back.linkData.dao.LinkDataDao;
+
+import ch.qos.logback.core.util.FileUtil;
 
 @SuppressWarnings("unchecked")
 @Service
@@ -25,11 +29,25 @@ public class LinkDataService {
 	@Autowired
 	LinkDataDao linkDataDao;
 	
-	public JSONObject saveUserInputLink(@RequestBody HashMap<String, Object> data) {
+	public JSONObject saveUserInputLink(String testStr, MultipartFile muf) {
 		JSONObject json = new JSONObject();
+		
+		try {
+			// TODO
+			// Multipart File 에 대하여 더 고민하기 !!
+			// Multipart File 속성에 대하여 더 공부하기 !!!
+			// Link Data File 저장 할 DB 생성 하기 !!!!
+			String fileName = muf.getOriginalFilename();		// File Name
+			Long fileSize = muf.getSize();						// File Size
+			String fileContentType = muf.getContentType();		// ContentType
+			byte[] fileDataBytes = muf.getBytes();				// Data bytes
+			
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		json.put("CONNECTION_TEST", "SUCCESS");
-		
-		
 		return json;
 	}
 	

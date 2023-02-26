@@ -10,23 +10,46 @@ import Chip from '@mui/material/Chip';
 function LinkRegistMain() {
     const [inputLink, setInputLink] = useState<string>('');
     const [inputComments, setInputComments] = useState<string[]>([]);
-
+    const [inputImageFile, setInputImageFile] = useState('');
+    
     useEffect(() => {
        console.log('LINK REGIST MAIN PAGE USEEFFECT INPUT COMMENTS TEST  : ' + JSON.stringify(inputComments));
     }, [inputComments])
-
 
     useEffect(() => {
        console.log('셋셋 인풋 코멘트트트츠츠 : ' + JSON.stringify(setInputComments));
     }, [setInputComments])
 
+    useEffect(() => {
+
+    }, [inputImageFile])
 
     // Link 등록 페이지는
     // Comment 는 최대 5? 10? 개 까지 가능 (몇 개까지 가능할 지 고려하기) 
     // 사진은 딱 1장만 가능하도록 구현 
     const saveUserInputLink = () => {
-       alert('링크 등록 !');
-       axios.post('/api/saveUserInputLink', {'TEST': 'TEST_BODY'})
+       let sendData = {
+              'test': 'nameTest'
+       }
+       
+       let formDataTest = new FormData();
+
+       console.log('INPUT IMAGE TEST : ', inputImageFile[0]);
+
+       formDataTest.append('test', JSON.stringify(sendData));
+       formDataTest.append('uploadImage', inputImageFile[0]);   
+
+       let saveLinkData = {
+              // inputLinkImageFile : fd,
+              inputLinkComments : inputComments,
+              inputLinkUrl : inputLink
+       }
+
+       axios.post('/api/saveUserInputLink', formDataTest, {
+              headers: {
+                     'Content-Type': 'multipart/form-data'
+              }
+              })
               .then((res) => {
                      console.log('SAVE USER LINK RES : ' + JSON.stringify(res));
               })       
@@ -35,7 +58,11 @@ function LinkRegistMain() {
                      console.log('save user input link err data 2 : ' + JSON.stringify(err));
               })
     }
-   
+    
+    const setImageTest = (sendImageFile: any) => {
+       setInputImageFile(sendImageFile);
+    }
+
     return (
         <div>
              <h1>LINK 등록 페이지</h1>
@@ -49,7 +76,8 @@ function LinkRegistMain() {
              </div>
              <Divider variant="inset" />
              <div>
-                    <LinkRegistPhoto />
+                    {/* <LinkRegistPhoto inputImage={setInputImageFile}/> */}
+                    <LinkRegistPhoto inputImage={setImageTest}/>
              </div>
              <Divider variant="inset" />
              <div>

@@ -166,8 +166,7 @@ function Copyright(props: any) {
               </Button>
               <Button variant="contained" color="secondary" href="/changeUserData">
                 회원정보 수정
-              </Button>  
-
+              </Button> 
               <Dialog
                 open={openLogoutConfirm}
                 onClose={closeLogoutConfirm}
