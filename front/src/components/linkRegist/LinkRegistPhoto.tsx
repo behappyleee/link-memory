@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Button from '@mui/material/Button';
 
-function LinkRegistPhoto() {
+function LinkRegistPhoto(props: any) {
     // TODO
     // (1) Image Upload 기능 추가하기
     // (2) Image 업로드 하였을 시 미리보기 기능 추가

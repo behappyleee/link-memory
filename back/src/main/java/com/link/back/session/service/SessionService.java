@@ -3,6 +3,7 @@ package com.link.back.session.service;
 
 import java.util.Enumeration;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,7 @@ public class SessionService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@SuppressWarnings("unchecked")
 	public JSONObject existUserSession(HttpServletRequest request) {
 		JSONObject sessionResult = new JSONObject();
 		HttpSession currentSession = request.getSession();

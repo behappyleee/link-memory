@@ -1,6 +1,5 @@
 package com.link.back.linkData.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,9 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.link.back.linkData.dao.LinkDataDao;
 
+@SuppressWarnings("unchecked")
 @Service
 public class LinkDataService {
 	
@@ -24,7 +25,14 @@ public class LinkDataService {
 	@Autowired
 	LinkDataDao linkDataDao;
 	
-	@SuppressWarnings("unchecked")
+	public JSONObject saveUserInputLink(@RequestBody HashMap<String, Object> data) {
+		JSONObject json = new JSONObject();
+		json.put("CONNECTION_TEST", "SUCCESS");
+		
+		
+		return json;
+	}
+	
 	public JSONObject userSavedLinkData(HttpServletRequest request, HashMap<String, Object> data) {
 		JSONObject jsonData = new JSONObject();
 		
@@ -48,11 +56,9 @@ public class LinkDataService {
 		return jsonData;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public JSONObject sortListByLink(List<HashMap<String,Object>> linkList) {
 		logger.info("JSONArrayData : {} ", linkList);
 		JSONObject jsonObject = new JSONObject();
-		
 		if(linkList.isEmpty()) return jsonObject;
 		
 		JSONArray jsonArray = null;

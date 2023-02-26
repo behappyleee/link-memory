@@ -1,6 +1,7 @@
 package com.link.back.linkData.controller;
 
 import java.util.Enumeration;
+
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,12 +11,14 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.link.back.linkData.service.LinkDataService;
 
+@SuppressWarnings("unchecked")
 @RestController
 @RequestMapping("/api")
 public class LinkDataController {
@@ -24,6 +27,13 @@ public class LinkDataController {
 	
 	@Autowired
 	LinkDataService linkDataService;
+	
+	@RequestMapping("/saveUserInputLink")
+	public JSONObject saveUserInputLink(@RequestBody HashMap<String, Object> data) {
+		logger.info("LinkDataController /api/saveUserInputLink : {} ", data);
+		JSONObject json = linkDataService.saveUserInputLink(data);
+		return json;
+	}
 	
 	@RequestMapping("/userSavedLinkData") 
 	public JSONObject userSavedLinkData(HttpServletRequest request, @RequestParam HashMap<String, Object> data) {	
@@ -38,8 +48,6 @@ public class LinkDataController {
 		
 		
 		JSONObject jsonResult = linkDataService.userSavedLinkData(request, data);
-		
-		
 		return jsonResult;
 	}
 	
