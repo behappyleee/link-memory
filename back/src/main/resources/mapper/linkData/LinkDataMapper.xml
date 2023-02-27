@@ -14,7 +14,27 @@
 			     ON ul.id = lc.saved_link_id
 			  WHERE ul.user_email = #{userEmail} 
 	</select>
-		
+	
+	<insert id="insertLinkData" parameterType="hashmap">
+		  INSERT INTO user_saved_link       /* [LinkDataMapper.xml][LinkDataMapper][insertLinkData] */
+	    	(user_id, user_email, link) VALUES( 
+	    		(SELECT id FROM link_memory.member m   
+	    		  WHERE	m.user_email = #{userEmail} 
+	    	), #{userEmail}, #{inputSaveLink}); 
+	
+	</insert>
+	
+	<!-- TODO
+		 COMMENTS MAPPER 에 넣는 쿼리 구현 하기 !!!!!
+		 쿼리 LINK COMMENTS 넣어 주기 !!!
+	  -->
+	<insert id="insertLinkComments" parameterType="hashMap">
+	  	INSERT INTO link_comment     /* [LinkDataMapper.xml][LinkDataMapper][insertLinkComments] */
+	    	(saved_link_id, comment, user_email) VALUES( 
+	    		(SELECT id FROM link_memory.member m   
+	    		  WHERE	m.user_email = #{userEmail} 
+	    	), #{userEmail}, #{inputSaveLink}); 
+	</insert>
 
 	
 </mapper>

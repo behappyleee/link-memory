@@ -30,11 +30,12 @@ public class LinkDataController {
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/saveUserInputLink", method=RequestMethod.POST, consumes="multipart/form-data")
-	public JSONObject saveUserInputLink(@RequestParam(value="test", required=true) String testJson, @RequestPart(value="uploadImage", required=false) MultipartFile multiFile) {
-		logger.info("LinkDataController /api/saveUserInputLink testJson : {} ", testJson);
+	public JSONObject saveUserInputLink(HttpServletRequest request, @RequestParam HashMap<String, Object> data, 
+			@RequestPart(value="uploadImage", required=false) MultipartFile multiFile) {
+		logger.info("LinkDataController /api/saveUserInputLink testJson : {} ", data);
 		logger.info("LinkDataController /api/saveUserInputLink : {} ", multiFile);
-		
-		JSONObject json = linkDataService.saveUserInputLink(testJson, multiFile);
+		 
+		JSONObject json = linkDataService.saveUserInputLink(request, data, multiFile);
 		return json;
 	}
 	

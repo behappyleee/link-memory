@@ -29,21 +29,12 @@ function LinkRegistMain() {
     // 사진은 딱 1장만 가능하도록 구현 
     const saveUserInputLink = () => {
        let sendData = {
-              'test': 'nameTest'
+              inputLink: inputLink,
+              inputComments: inputComments,        
        }
-       
        let formDataTest = new FormData();
-
-       console.log('INPUT IMAGE TEST : ', inputImageFile[0]);
-
-       formDataTest.append('test', JSON.stringify(sendData));
+       formDataTest.append('sendData', JSON.stringify(sendData));
        formDataTest.append('uploadImage', inputImageFile[0]);   
-
-       let saveLinkData = {
-              // inputLinkImageFile : fd,
-              inputLinkComments : inputComments,
-              inputLinkUrl : inputLink
-       }
 
        axios.post('/api/saveUserInputLink', formDataTest, {
               headers: {
@@ -52,6 +43,10 @@ function LinkRegistMain() {
               })
               .then((res) => {
                      console.log('SAVE USER LINK RES : ' + JSON.stringify(res));
+                     
+
+
+
               })       
               .catch((err) => {
                      console.log('save user input link err data 1 : ' + err);
