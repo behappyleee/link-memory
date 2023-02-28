@@ -68,7 +68,9 @@ public class LinkDataService {
 			saveLinkData.put("inputComments", commentsList);
 			
 			// 3. Image File DB 에는 Image Meta 정보 만 저장
+			// Image File은 서버에 저장하기 (DB 에는 Image 메타 데이터만 저장하기) .. !!
 			JSONArray inputComments = (JSONArray)inputLinkJsonData.get("inputComments");
+			
 			
 			json.put("RESULT", "SUCCESS");
 		} catch(Exception e) {
