@@ -38,11 +38,7 @@ public class FindPasswordService {
 		// 1. 이메일 전송
 		sendNewPasswordToEmail();
 		
-		
-		
 		// 2. 전송 된 임시 패스워드로 DB Update 하기
-		
-		
 		
 		// 3. 전송 및 DB 업데이트 성공 시 성공 완료 Alert 띄워 주기!
 		return resultJson;
@@ -115,9 +111,5 @@ public class FindPasswordService {
 //		}
 		
 	}
-
-	
-	
-	
 	
 }
