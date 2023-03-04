@@ -12,6 +12,7 @@ import TestPage from './pages/test/TestPage';
 import HookTest from './pages/test/HookTest';
 import ChangeUserDataMain from './pages/changeUser/ChangeUserDataMain';
 import LandingPageLoad from './pages/landingPage/LandingPageLoad';
+import FindPasswordMain from './pages/findPassword/FindPasswordMain';
 
 const darkTheme = createTheme({
   palette: {
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/join" element={<JoinMain />}></Route>                 {/* 회원가입 페이지 */}          
                 <Route path="/dashBoardMain" element={<DashBoardMain />}></Route>   {/* Dashboard 메인 페이지 */}          
                 <Route path="/changeUserData" element={<ChangeUserDataMain />}></Route>   {/* 회원정보 수정 페이지 */}   
+                <Route path="/findPassword" element={<FindPasswordMain />}></Route>{/* 회원 비밀번호 찾기 페이지 */}
 
                 {/* TEST PAGE */}
                 <Route path="/test" element={<TemplateTest />}></Route>             {/* 테스트 페이지 */}          

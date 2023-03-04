@@ -43,8 +43,6 @@ function LinkRegistMain() {
               })
               .then((res) => {
                      console.log('SAVE USER LINK RES : ' + JSON.stringify(res));
-                     
-
 
 
               })       
