@@ -1,24 +1,13 @@
 package com.link.back.user.service;
 
 
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
-import com.link.back.util.MimeMessageImpl;
-import com.link.back.util.SMTPAuthenticator;
 
 @Service
 public class FindPasswordService {
@@ -27,16 +16,18 @@ public class FindPasswordService {
 	
 	final String bodyEncoding = "UTF-8"; //콘텐츠 인코딩
 	
-	@Autowired
-	MimeMessageImpl mimeImpl;
-	
-	public JSONObject findPassword() {
-		logger.info("FindPasswordService DATA : {} " );
+	public JSONObject findPassword(HashMap<String, Object> data) {
+		logger.info("FindPasswordService DATA : {} ", data);
 		JSONObject resultJson = new JSONObject();
+		String inputUserEmail = (String) data.get("inputUserEmail");
+		
+		
+		logger.info("STRING USER INPUT EMAIL DATA : {} ", inputUserEmail);
+		
 		
 		// 회원 비밀번호 찾기 서비스 !!!
 		// 1. 이메일 전송
-		sendNewPasswordToEmail();
+		sendNewPasswordToEmail(inputUserEmail);
 		
 		// 2. 전송 된 임시 패스워드로 DB Update 하기
 		
@@ -44,10 +35,9 @@ public class FindPasswordService {
 		return resultJson;
 	}
 	
-	public void sendNewPasswordToEmail() {
+	public void sendNewPasswordToEmail(String sendUserEmail) {
 		JavaMailSender javaMailSender;
 		String fromEmail = "";
-		
 		
 		// Java SMTP 로 메일 전송 하기!
 //		Properties props = new Properties();

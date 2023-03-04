@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Google Email Setting ###
+/src/main/resources/emailConfig.properties
+

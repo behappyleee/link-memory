@@ -14,8 +14,4 @@ public class MimeMessageImpl extends MimeMessage {
 		super(session);
 	}
 	
-	@Override
-	
-	
-	
 }

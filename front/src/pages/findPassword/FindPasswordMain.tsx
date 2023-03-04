@@ -38,6 +38,7 @@ function FindPasswordMain() {
     };
 
     const inputUserEmail = (e: any) => {
+        setInputEmail(e.target.value);
         return (
             <div>
                 <Alert severity="info">
@@ -46,11 +47,29 @@ function FindPasswordMain() {
                 </Alert>
             </div>
         )
-    }
-
-    const sendTempPasswordByEmail = () => {
 
     }
+
+    const sendTempPasswordByEmail = async () => {
+        console.log('SEND TEMP PASSWORD BY EMAIL DATA : ' + inputEmail);
+        
+        let inputUserEmail = {
+            inputUserEmail : inputEmail
+        }
+
+        console.log('SEND TEMP PASSWORD BY EMAIL DATA : ' + JSON.stringify(inputUserEmail));
+
+        await axios.post('/api/findPassword', inputUserEmail)
+            .then((res) => {
+
+                console.log('FIND PASSWORD RES : ' + JSON.stringify(res));
+
+
+            }).catch((err) => {
+                console.log('FIND PASSWORD RES : ' + JSON.stringify(err));
+            })
+    }
+    
     return (
         <ThemeProvider theme={theme}>
             <Container component="main" maxWidth="xs">
