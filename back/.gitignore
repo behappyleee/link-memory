@@ -34,4 +34,6 @@ build/
 
 ### Google Email Setting ###
 /src/main/resources/emailConfig.properties
+/src/main/resources/application-email.properties
+
 

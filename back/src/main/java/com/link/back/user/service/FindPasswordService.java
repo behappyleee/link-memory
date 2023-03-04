@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,20 @@ public class FindPasswordService {
 	
 	final String bodyEncoding = "UTF-8"; //콘텐츠 인코딩
 	
+	@Value("${spirng.google.email}")
+	private String configUserEmail;
+	
+	@Value("${spirng.google.email.password}")
+	private String configUserPassword;
+	
 	public JSONObject findPassword(HashMap<String, Object> data) {
 		logger.info("FindPasswordService DATA : {} ", data);
 		JSONObject resultJson = new JSONObject();
 		String inputUserEmail = (String) data.get("inputUserEmail");
 		
-		
 		logger.info("STRING USER INPUT EMAIL DATA : {} ", inputUserEmail);
+		// logger.info("USER EMAIL : {} ", configUserEmail);
+		logger.info("USER EMAIL : {} ", configUserPassword);
 		
 		
 		// 회원 비밀번호 찾기 서비스 !!!
