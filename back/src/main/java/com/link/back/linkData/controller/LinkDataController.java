@@ -1,7 +1,10 @@
 package com.link.back.linkData.controller;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,5 +58,26 @@ public class LinkDataController {
 		JSONObject jsonResult = linkDataService.userSavedLinkData(request, data);
 		return jsonResult;
 	}
+	
+	public static void main(String[] args) {
+		
+		HashMap<String, Object> testMap = new HashMap<>();
+		
+		System.out.println("TEST MAP HASH 1 : " + testMap.toString());
+		System.out.println("TEST MAP HASH 2 : " + testMap.toString());
+		
+		Object aaa = new Object();
+		System.out.println("AAA TO STRING 1 : " + aaa.toString());
+		System.out.println("AAA TO STRING 2 : " + aaa.toString());
+		
+		
+		LinkedList<String> linkTest = new LinkedList<>();
+		List<String> arList = new ArrayList<>();
+		
+		
+		
+	}
+	
+	
 	
 }

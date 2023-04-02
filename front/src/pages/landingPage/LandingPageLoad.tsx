@@ -3,9 +3,15 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function LandingPageLoad() {
+
+    console.log('FIRST PAGE LOAD !');
+
     const navigate = useNavigate();
+    const greetingsLandingPage = ['Hello', 'It is LinkMemory Web Site'];
+
+
     useEffect(() => {
-        isCurrentUserLogin();
+        // isCurrentUserLogin();
     }, [])
 
     const isCurrentUserLogin = async () => {
@@ -27,6 +33,16 @@ function LandingPageLoad() {
     }  
     return (
         <div>
+            Command Line Design 구현 하기 Testing !!!!!
+            {greetingsLandingPage && 
+                greetingsLandingPage.map((greeting, index) => (
+                    <ul key={index}>
+                        <li> {greeting} </li>
+                    </ul>
+                ))
+            }
+
+
         </div>
     )
 }
