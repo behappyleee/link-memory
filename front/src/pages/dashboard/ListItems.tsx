@@ -13,21 +13,6 @@ import LinkMemory from '../../components/linkMemory/LinkMemory';
 import DashBoardMainContents from './DashBoardMainContents';
 import DashBoardMain from './DashBoardMain';
 
-const testOnClick = () => {
-  alert('CLICK ME !!!');
-  // <DashBoardMainContents contents="SAVED_LINK"/>
-}
-
-// const testOnClickLinkRegist = (): number => {
-//   var indexNum = 0;
-//   const [contentsIndex, setContentsIndex] = useState(0);  
-//   alert('Link Regist 등록 !!!!');
-//   // <DashBoardMainContents contents="LINK_REGISTER"/>
-//   return indexNum;
-// }
-
-// const [contentsIndex, setContentsIndex] = useState(0);
-
 function MainListItems(props: any): any {
   const [contentsIndex, setContentsIndex] = useState<number>(0);  
   const dashboardContentsIndex = (contentsIndex: number) => {
@@ -37,7 +22,8 @@ function MainListItems(props: any): any {
   }
 
   return (
-    <React.Fragment>  
+    <React.Fragment>
+
       <ListItemButton onClick={() => {dashboardContentsIndex(0)}}>
         <ListItemIcon>
           <DashboardIcon />
@@ -45,17 +31,26 @@ function MainListItems(props: any): any {
         <ListItemText primary="저장 된 Link" />
         {/* <DashBoardMainContents contents="SAVED_LINK"/> */}
       </ListItemButton>
+
       <ListItemButton onClick={() => {dashboardContentsIndex(1)}}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
         <ListItemText primary="Link 등록" />
       </ListItemButton>
+
       <ListItemButton onClick={() => {dashboardContentsIndex(2)}}>
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        <ListItemText primary="에러 보고" />
+        <ListItemText primary="1:1 문의" />
+      </ListItemButton>
+
+      <ListItemButton onClick={() => {dashboardContentsIndex(3)}}>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        <ListItemText primary="자주 묻는 질문" />
       </ListItemButton>
 
       {/* <ListItemButton>

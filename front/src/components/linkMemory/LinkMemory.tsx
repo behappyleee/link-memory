@@ -29,23 +29,15 @@ function LinkMemory() {
         color: theme.palette.text.secondary,
         margin: [10, 20, 10],
       }));
-
-    // async function userSavedLinkData() {
+    
     const userSavedLinkData = async() => {    
         await axios.get('/api/userSavedLinkData')
             .then((res) => {
                 let result = res.data.DATA_SEARCH;
-
-                console.log('RES GET DATA CHECK : ' + JSON.stringify(res));    
-
                 if(result == 'SUCCESS') {
                     let listData = res.data.USER_LINK_DATA;
-
-                    // showGridData('show 1122');
-
                     setUserLinkData(listData);
                     setSpacing(Math.ceil(listData.length/3));    
-                    
                 }
             }).catch((err) => {
                 console.log('USER SAVED LINKED DATA ERR : ' + err);
@@ -53,14 +45,14 @@ function LinkMemory() {
     }
    
     const showGridData = (showListData: any) => {
-        let html = 'test11123';
         const newArr = []
         for(let eachData in showListData) {
             let eachListData = showListData[eachData];
             newArr.push(
-            <Grid key={eachData} xs={4}>
-                <LinkCard linkData={eachListData} linkKey={eachData} key={eachData} sx={{ display: 'inline-flex' }} />
-            </Grid>
+                <Grid key={eachData} xs={4}>
+                    <LinkCard linkData={eachListData} linkKey={eachData} key={eachData} sx={{ display: 'inline-flex' }} />
+                </Grid>
+
             );
         }   
         return newArr;
@@ -69,7 +61,8 @@ function LinkMemory() {
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={spacing}>
+                {/* <Grid container spacing={spacing}> */}
+                <Grid container spacing={1}>
                     {showGridData(userLinkData)}
                 </Grid>
             </Box>

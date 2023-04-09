@@ -3,6 +3,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import LinkMemory from '../../components/linkMemory/LinkMemory';
 import LinkRegistMain from '../linkRegist/LinkRegistMain';
+import FaqMain from '../faq/FaqMain';
 
 function DashBoardMainContents(props: any) {
     const [contentsIndex, setContentsIndex] = useState(0);
@@ -14,13 +15,25 @@ function DashBoardMainContents(props: any) {
 
     return (
         <React.Fragment>
+            {/* 저장 된 Link 페이지 */}
             {contentsIndex == 0 &&
                 <LinkMemory />
             }
-
+            
+            {/* Link 등록 페이지 */}
             {contentsIndex == 1 &&
                 <LinkRegistMain />
-            }
+            }   
+            
+            {/* 1:1 문의 페이지 */}
+            {contentsIndex == 2 &&
+                <LinkRegistMain />
+            }  
+
+            {/* 자주 묻는 질문 페이지 */}
+            {contentsIndex == 3 &&
+               <FaqMain />
+            } 
 
             {/* <div> */}
             {/* <Title>Recent Deposits</Title> */}

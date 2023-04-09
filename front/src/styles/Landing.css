@@ -1,0 +1,15 @@
+/* Landing Page CSS */
+
+.mainBgColor {
+    background-color: black;
+}
+
+.commanTextColor {
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    font-style: italic;
+    font-size: 60px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
